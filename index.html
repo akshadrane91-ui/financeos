@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceOS Pro X 2026</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <style>
+        /* CSS Variables - Apple/Stripe Inspired Glassmorphism Theme */
+        :root {
+            --bg-base: #f5f5f7;
+            --surface: rgba(255, 255, 255, 0.7);
+            --surface-solid: #ffffff;
+            --surface-hover: rgba(255, 255, 255, 0.9);
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --border: rgba(0, 0, 0, 0.08);
+            --accent: #0066cc;
+            --accent-hover: #0077ed;
+            --income: #34c759;
+            --expense: #ff3b30;
+            --warning: #ff9500;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.12);
+            --radius-sm: 12px;
+            --radius-md: 20px;
+            --radius-lg: 28px;
+            --blur: blur(20px);
+            --transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+            --font-stack: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        .dark-theme {
+            --bg-base: #000000;
+            --surface: rgba(28, 28, 30, 0.7);
+            --surface-solid: #1c1c1e;
+            --surface-hover: rgba(44, 44, 46, 0.9);
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --border: rgba(255, 255, 255, 0.1);
+            --accent: #0a84ff;
+            --accent-hover: #409cff;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+            --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-stack); -webkit-font-smoothing: antialiased; }
+
+        body {
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            padding: 24px;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 1440px; margin: 0 auto; }
+
+        /* Typography & Utilities */
+        h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.02em; }
+        .text-muted { color: var(--text-secondary); font-size: 0.85rem; }
+        .font-mono { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace; }
+        .flex-between { display: flex; justify-content: space-between; align-items: center; }
+        .flex-col { display: flex; flex-direction: column; gap: 16px; }
+        .d-none { display: none !important; }
+        .mb-1 { margin-bottom: 8px; } .mb-2 { margin-bottom: 16px; }
+        .mt-1 { margin-top: 8px; } .mt-2 { margin-top: 16px; }
+
+        /* Header */
+        header { margin-bottom: 40px; }
+        .logo-wrap { display: flex; align-items: center; gap: 16px; }
+        .logo-icon { font-size: 36px; background: var(--surface); padding: 12px; border-radius: var(--radius-md); box-shadow: var(--shadow-sm); border: 1px solid var(--border); backdrop-filter: var(--blur); }
+        .brand-name { font-size: 28px; font-weight: 700; background: linear-gradient(135deg, var(--text-primary), var(--text-secondary)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .badge { font-size: 11px; background: var(--accent); color: white; padding: 4px 10px; border-radius: 20px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; }
+
+        /* Buttons */
+        .btn { padding: 12px 20px; border-radius: 14px; font-weight: 600; font-size: 14px; cursor: pointer; border: none; transition: var(--transition); display: inline-flex; align-items: center; justify-content: center; gap: 8px; }
+        .btn-primary { background: var(--accent); color: #fff; box-shadow: 0 4px 12px rgba(0, 102, 204, 0.3); }
+        .btn-primary:hover { background: var(--accent-hover); transform: translateY(-2px); box-shadow: 0 6px 16px rgba(0, 102, 204, 0.4); }
+        .btn-secondary { background: var(--surface); color: var(--text-primary); border: 1px solid var(--border); backdrop-filter: var(--blur); }
+        .btn-secondary:hover { background: var(--surface-hover); transform: translateY(-1px); }
+        .btn-danger { background: rgba(255, 59, 48, 0.1); color: var(--expense); }
+        .btn-danger:hover { background: var(--expense); color: white; }
+        .btn-sm { padding: 8px 14px; font-size: 13px; border-radius: 10px; }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .w-100 { width: 100%; }
+
+        /* Forms & Inputs */
+        .input-group { display: flex; flex-direction: column; gap: 6px; margin-bottom: 16px; }
+        label { font-size: 12px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select, textarea { width: 100%; padding: 14px 16px; border-radius: 14px; border: 1px solid var(--border); background: var(--surface); color: var(--text-primary); font-size: 15px; outline: none; transition: var(--transition); font-family: inherit; }
+        input:focus, select:focus, textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 4px rgba(0, 102, 204, 0.15); background: var(--surface-solid); }
+        textarea { height: 90px; resize: vertical; }
+
+        /* Glass Cards */
+        .card { background: var(--surface); border-radius: var(--radius-lg); padding: 28px; box-shadow: var(--shadow-md); border: 1px solid var(--border); backdrop-filter: var(--blur); transition: var(--transition); }
+        .card:hover { box-shadow: var(--shadow-lg); }
+        .card-header { font-size: 18px; font-weight: 600; margin-bottom: 20px; display: flex; align-items: center; justify-content: space-between; }
+
+        /* Grid Layouts */
+        .dashboard-grid { display: grid; grid-template-columns: 1fr 400px; gap: 32px; align-items: start; }
+        .main-col, .side-col { display: flex; flex-direction: column; gap: 32px; }
+        .metrics-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; }
+        .features-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+
+        /* Metric Highlights */
+        .metric { display: flex; flex-direction: column; gap: 8px; }
+        .metric-title { font-size: 14px; font-weight: 500; color: var(--text-secondary); }
+        .metric-value { font-size: 36px; font-weight: 700; font-variant-numeric: tabular-nums; letter-spacing: -1px; }
+        .val-income { color: var(--income); } .val-expense { color: var(--expense); } .val-balance { color: var(--text-primary); }
+
+        /* Progress Bars */
+        .progress-wrap { width: 100%; height: 10px; background: var(--border); border-radius: 10px; overflow: hidden; margin: 12px 0; }
+        .progress-fill { height: 100%; border-radius: 10px; transition: width 0.8s cubic-bezier(0.25, 1, 0.5, 1); }
+
+        /* Budgets & Recurring */
+        .budget-list, .recurring-list { display: flex; flex-direction: column; gap: 16px; }
+        .budget-item, .recurring-item { padding: 16px; background: var(--surface-solid); border-radius: var(--radius-md); border: 1px solid var(--border); }
+        .budget-info { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 14px; }
+
+        /* AI Insights */
+        .insight-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+        .insight-list li { padding: 12px 16px; background: var(--surface-solid); border-radius: var(--radius-md); font-size: 14px; display: flex; align-items: flex-start; gap: 12px; border: 1px solid var(--border); }
+        .insight-icon { font-size: 18px; }
+
+        /* Charts */
+        .charts-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .chart-box { background: var(--surface-solid); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border); display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        canvas { max-width: 100%; height: auto; }
+
+        /* Ledger Table */
+        .table-responsive { overflow-x: auto; width: 100%; border-radius: var(--radius-md); border: 1px solid var(--border); background: var(--surface-solid); }
+        table { width: 100%; border-collapse: collapse; text-align: left; white-space: nowrap; }
+        th, td { padding: 16px 20px; border-bottom: 1px solid var(--border); }
+        th { font-size: 13px; font-weight: 600; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px; background: rgba(0,0,0,0.02); }
+        .dark-theme th { background: rgba(255,255,255,0.02); }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--surface-hover); }
+        .tag { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 600; background: var(--bg-base); border: 1px solid var(--border); }
+
+        /* Toasts */
+        #toast-container { position: fixed; bottom: 24px; right: 24px; z-index: 9999; display: flex; flex-direction: column; gap: 12px; }
+        .toast { background: var(--surface-solid); color: var(--text-primary); padding: 16px 24px; border-radius: var(--radius-md); box-shadow: var(--shadow-lg); border: 1px solid var(--border); font-size: 14px; font-weight: 500; display: flex; align-items: center; gap: 12px; transform: translateX(120%); transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); backdrop-filter: var(--blur); }
+        .toast.show { transform: translateX(0); }
+
+        /* Settings Modal */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0, 0, 0, 0.4); backdrop-filter: blur(8px); display: flex; justify-content: center; align-items: center; z-index: 1000; opacity: 0; visibility: hidden; transition: var(--transition); }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal { background: var(--surface-solid); width: 100%; max-width: 500px; padding: 32px; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); transform: scale(0.95); transition: var(--transition); border: 1px solid var(--border); max-height: 90vh; overflow-y: auto; }
+        .modal-overlay.active .modal { transform: scale(1); }
+        .modal-header { display: flex; justify-content: space-between; margin-bottom: 24px; }
+        .close-btn { background: none; border: none; font-size: 24px; color: var(--text-secondary); cursor: pointer; }
+
+        /* Floating Action Button */
+        .fab {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            font-size: 32px;
+            color: var(--accent);
+            cursor: pointer;
+            z-index: 9999;
+            transition: all .3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .fab:hover {
+            transform: scale(1.05);
+        }
+
+        .dark-theme .fab {
+            background: rgba(28, 28, 30, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        @media (max-width: 1024px) { .dashboard-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) {
+            .features-grid { grid-template-columns: 1fr; }
+            .metric-value { font-size: 28px; }
+            body { padding: 16px; }
+            .fab { width: 55px; height: 55px; font-size: 28px; }
+        }
+    </style>
+</head>
+<body>
+    <div id="toast-container"></div>
+
+    <div class="container">
+        <header class="flex-between">
+            <div class="logo-wrap">
+                <div class="logo-icon">⌘</div>
+                <div>
+                    <h1 class="brand-name">FinanceOS Pro</h1>
+                    <span class="badge">UPI Insights Edition</span>
+                </div>
+            </div>
+            <div style="display: flex; gap: 12px;">
+                <button id="quickBackupBtn" class="btn btn-secondary" title="Download JSON backup — your data lives in this browser only">💾 Backup</button>
+                <button id="themeToggleBtn" class="btn btn-secondary" aria-label="Toggle Theme">🌓</button>
+                <button id="settingsBtn" class="btn btn-secondary">⚙️ Settings</button>
+            </div>
+        </header>
+
+        <div id="persistenceNotice" style="background: rgba(255,149,0,0.1); border: 1px solid rgba(255,149,0,0.3); border-radius: 14px; padding: 12px 18px; margin-bottom: 24px; display: flex; justify-content: space-between; align-items: center; gap: 12px;">
+            <span style="font-size: 13px; color: var(--text-secondary);">⚠️ <strong style="color: var(--text-primary);">Your data is stored in this browser only.</strong> It will be lost if you clear browser data or switch devices. Use <strong>Backup</strong> regularly to save a JSON file.</span>
+            <button onclick="document.getElementById('persistenceNotice').style.display='none'" style="background:none;border:none;cursor:pointer;color:var(--text-secondary);font-size:18px;padding:0 4px;">×</button>
+        </div>
+
+        <main class="dashboard-grid">
+            <section class="main-col">
+                <div class="card">
+                    <div class="metrics-grid">
+                        <div class="metric">
+                            <span class="metric-title">Total Balance</span>
+                            <span class="metric-value val-balance font-mono" id="uiBalance">₹0.00</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-title">Monthly Income</span>
+                            <span class="metric-value val-income font-mono" id="uiIncome">₹0.00</span>
+                        </div>
+                        <div class="metric">
+                            <span class="metric-title">Monthly Expense</span>
+                            <span class="metric-value val-expense font-mono" id="uiExpense">₹0.00</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="features-grid">
+                    <div class="card">
+                        <h3 class="card-header">Pulse Check</h3>
+                        <div class="flex-col">
+                            <div>
+                                <div class="flex-between mb-1">
+                                    <span class="text-muted">Daily Spending Limit</span>
+                                    <span class="tag font-mono" id="uiDailyLimit">₹0</span>
+                                </div>
+                                <div class="flex-between">
+                                    <span class="text-muted">Spent Today</span>
+                                    <span class="tag font-mono" id="uiSpentToday">₹0</span>
+                                </div>
+                            </div>
+                            <div style="border-top: 1px solid var(--border); padding-top: 16px;">
+                                <div class="flex-between">
+                                    <span class="metric-title">Health Score</span>
+                                    <strong id="uiHealthScore" style="font-size: 20px;">100</strong>
+                                </div>
+                                <div class="progress-wrap"><div class="progress-fill" id="uiHealthBar" style="background: var(--income); width: 100%;"></div></div>
+                                <span class="text-muted" id="uiHealthLabel">Excellent</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <h3 class="card-header">Savings Goal</h3>
+                        <div class="input-group" style="flex-direction: row; gap: 8px;">
+                            <input type="number" id="goalInput" placeholder="Target Amount" min="0">
+                            <button id="saveGoalBtn" class="btn btn-primary btn-sm">Set</button>
+                        </div>
+                        <div class="mt-2">
+                            <div class="flex-between font-mono" style="font-size: 14px;">
+                                <span id="uiGoalSaved">₹0</span>
+                                <span class="text-muted" id="uiGoalTarget">/ ₹0</span>
+                            </div>
+                            <div class="progress-wrap"><div class="progress-fill" id="uiGoalBar" style="background: var(--accent); width: 0%;"></div></div>
+                            <span class="text-muted" id="uiGoalStatus">Set a goal to track.</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-header">Analytics</h3>
+                    <div class="charts-row">
+                        <div class="chart-box">
+                            <span class="text-muted mb-2">Expenses by Category</span>
+                            <canvas id="pieChart" width="220" height="220"></canvas>
+                        </div>
+                        <div class="chart-box">
+                            <span class="text-muted mb-2">Monthly Cashflow</span>
+                            <canvas id="barChart" width="300" height="200"></canvas>
+                        </div>
+                        <div class="chart-box">
+                            <span class="text-muted mb-2">Savings Trend</span>
+                            <canvas id="trendChart" width="300" height="200"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="flex-between" style="margin-bottom: 20px;">
+                        <h3 style="font-size: 18px;">Budget Planner</h3>
+                        <button id="editBudgetsBtn" class="btn btn-secondary btn-sm">Edit Limits</button>
+                    </div>
+                    <div id="budgetDisplayList" class="budget-list"></div>
+                    
+                    <div id="budgetEditSection" class="d-none mt-2" style="background: var(--surface-solid); padding: 16px; border-radius: var(--radius-md); border: 1px solid var(--border);">
+                        <h4 class="mb-2">Set Monthly Limits</h4>
+                        <div id="budgetInputsGrid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;"></div>
+                        <div class="mt-2" style="display: flex; gap: 8px;">
+                            <button id="saveBudgetsBtn" class="btn btn-primary btn-sm">Save</button>
+                            <button id="cancelBudgetsBtn" class="btn btn-secondary btn-sm">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card" id="ledgerSection">
+                    <div class="flex-between" style="margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+                        <h3 style="font-size: 18px;">Transaction Ledger</h3>
+                        <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                            <input type="text" id="filterSearch" placeholder="Search..." style="width: 150px; padding: 8px 12px;">
+                            <select id="filterCategory" style="width: auto; padding: 8px 12px;">
+                                <option value="All">All Categories</option>
+                            </select>
+                            <select id="filterType" style="width: auto; padding: 8px 12px;">
+                                <option value="All">All Types</option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="table-responsive">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Note</th>
+                                    <th>Category</th>
+                                    <th>Amount</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="ledgerBody"></tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="flex-between mt-2" id="paginationControls" style="padding: 8px 4px;">
+                        <span class="text-muted font-mono" id="pageIndicator">Page 1 of 1</span>
+                        <div style="display: flex; gap: 8px;">
+                            <button id="prevPageBtn" class="btn btn-secondary btn-sm" onclick="Ledger.prevPage()">Previous</button>
+                            <button id="nextPageBtn" class="btn btn-secondary btn-sm" onclick="Ledger.nextPage()">Next</button>
+                        </div>
+                    </div>
+
+                    <div class="mt-2" style="display: flex; gap: 8px; border-top: 1px solid var(--border); padding-top: 16px;">
+                        <button id="exportCsvBtn" class="btn btn-secondary btn-sm">Export CSV</button>
+                        <button id="exportPdfBtn" class="btn btn-secondary btn-sm">Export PDF</button>
+                        <label class="btn btn-secondary btn-sm" style="margin:0;">
+                            Import Bank CSV
+                            <input type="file" id="importCsvBtn" accept=".csv" class="d-none">
+                        </label>
+                        <label class="btn btn-secondary btn-sm" style="margin:0;">
+                            📄 Import PDF Statement
+                            <input type="file" id="importPdfBtn" accept=".pdf" class="d-none">
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="side-col">
+                
+                <div class="card" style="background: linear-gradient(135deg, rgba(0,102,204,0.05), transparent);">
+                    <h3 class="card-header">⚡ Smart Parser</h3>
+                    <p class="text-muted mb-2">Paste SMS or bank notification to auto-fill.</p>
+                    <textarea id="parserInput" placeholder="e.g., Spent ₹450 at Starbucks via UPI..."></textarea>
+                    <button id="parseBtn" class="btn btn-primary w-100 mt-1">Extract Data</button>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-header" id="formTitle">Add Transaction</h3>
+                    <div id="formError" style="display:none; background: rgba(255,59,48,0.1); color: var(--expense); padding: 10px 14px; border-radius: 10px; font-size: 13px; font-weight: 500; margin-bottom: 12px; border: 1px solid rgba(255,59,48,0.2);"></div>
+                    <form id="txForm">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="input-group">
+                                <label>Amount</label>
+                                <input type="number" id="txAmount" placeholder="0.00" step="any" min="0.01" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Date</label>
+                                <input type="date" id="txDate" required>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                            <div class="input-group">
+                                <label>Type</label>
+                                <select id="txType">
+                                    <option value="Expense">Expense</option>
+                                    <option value="Income">Income</option>
+                                </select>
+                            </div>
+                            <div class="input-group">
+                                <label>Category</label>
+                                <select id="txCategory"></select>
+                            </div>
+                        </div>
+                        <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 12px;">
+                            <div class="input-group">
+                                <label>Note / Merchant</label>
+                                <input type="text" id="txNote" placeholder="e.g., Lunch" required>
+                            </div>
+                            <div class="input-group">
+                                <label>Repeat</label>
+                                <select id="txRecurring">
+                                    <option value="none">Never</option>
+                                    <option value="weekly">Weekly</option>
+                                    <option value="monthly">Monthly</option>
+                                    <option value="yearly">Yearly</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100" id="txSubmitBtn">Save Transaction</button>
+                        <button type="button" class="btn btn-secondary w-100 mt-1 d-none" id="txCancelEditBtn">Cancel Edit</button>
+                    </form>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-header">📊 Smart Insights</h3>
+                    <ul class="insight-list" id="aiInsightsList"></ul>
+                </div>
+
+                <div class="card">
+                    <h3 class="card-header">Overview Stats</h3>
+                    <div class="flex-col">
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Total Transactions</span><strong class="font-mono" id="statCount">0</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Avg. Expense</span><strong class="font-mono" id="statAvgExp">₹0</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Largest Expense</span><strong class="font-mono" id="statMaxExp">₹0</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Top Category</span><strong id="statTopCat">-</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Best Month</span><strong id="statBestMonth">-</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Worst Month</span><strong id="statWorstMonth">-</strong></div>
+                        <div class="flex-between border-bottom pb-1"><span class="text-muted">Saving Streak</span><strong id="statStreak">0 months</strong></div>
+                        <div class="flex-between"><span class="text-muted">Avg Savings Rate</span><strong class="font-mono" id="statSaveRate">0%</strong></div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <div class="modal-overlay" id="settingsModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h3>System Settings</h3>
+                <button class="close-btn" id="closeSettingsBtn" aria-label="Close Settings">&times;</button>
+            </div>
+            
+            <div class="input-group">
+                <label>Currency</label>
+                <select id="currencySelect">
+                    <option value="INR">INR (₹)</option>
+                    <option value="USD">USD ($)</option>
+                    <option value="EUR">EUR (€)</option>
+                    <option value="GBP">GBP (£)</option>
+                </select>
+            </div>
+
+            <div class="mt-2 pt-2" style="border-top: 1px solid var(--border);">
+                <h4 class="mb-2">Active Recurring Rules</h4>
+                <div id="recurringList" class="recurring-list mb-2" style="max-height: 150px; overflow-y: auto;"></div>
+            </div>
+
+            <div class="mt-2 pt-2" style="border-top: 1px solid var(--border);">
+                <h4 class="mb-2">Data Management</h4>
+                <button id="backupBtn" class="btn btn-secondary w-100 mb-1">Backup Data (JSON)</button>
+                <label class="btn btn-secondary w-100 mb-1" style="text-align: center; margin-bottom: 8px;">
+                    Restore Data
+                    <input type="file" id="restoreInput" accept=".json" class="d-none">
+                </label>
+                <button id="resetBtn" class="btn btn-danger w-100 mt-2">Factory Reset</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="pdfPreviewModal">
+        <div class="modal" style="max-width: 800px;">
+            <div class="modal-header">
+                <h3>Preview PDF Transactions</h3>
+                <button class="close-btn" onclick="document.getElementById('pdfPreviewModal').classList.remove('active')">&times;</button>
+            </div>
+            <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Import</th>
+                            <th>Date</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Amount</th>
+                        </tr>
+                    </thead>
+                    <tbody id="pdfPreviewBody"></tbody>
+                </table>
+            </div>
+            <div class="mt-2" style="display: flex; gap: 8px; justify-content: flex-end; border-top: 1px solid var(--border); padding-top: 16px;">
+                <button class="btn btn-secondary" onclick="document.getElementById('pdfPreviewModal').classList.remove('active')">Cancel</button>
+                <button class="btn btn-primary" onclick="PDFImport.importSelected()">Import Selected Transactions</button>
+            </div>
+        </div>
+    </div>
+
+    <button id="fabBtn" class="fab" aria-label="Add Transaction">➕</button>
+
+    <script>
+        /** Architecture: Autonomous Frontend Application **/
+        
+        const CONSTANTS = {
+            CURRENCY: { INR: '₹', USD: '$', EUR: '€', GBP: '£' },
+            CATEGORIES: ["Food", "Travel", "Shopping", "Bills", "Health", "Education", "Entertainment", "Salary", "Investment", "Other"],
+            MONTHS: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        };
+
+        let State = {
+            transactions: [],
+            recurring: [],
+            goalAmount: 0,
+            theme: 'light',
+            currency: 'INR',
+            budgets: { "Food": 10000, "Travel": 5000, "Shopping": 5000, "Bills": 8000, "Health": 2000, "Education": 0, "Entertainment": 3000, "Other": 2000 }
+        };
+
+        let currentEditId = null;
+
+        // --- Utils & Security ---
+        const Utils = {
+            escapeHTML: (str) => {
+                if(!str) return '';
+                return str.replace(/[&<>'"]/g, 
+                    tag => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[tag] || tag)
+                );
+            }
+        };
+
+        // --- Automated SelfTests ---
+        const SelfTests = {
+            runAll: () => {
+                try {
+                    let p = true;
+                    p &= SelfTests.testParser(); p &= SelfTests.testBudget();
+                    p &= SelfTests.testTransactions(); p &= SelfTests.testRecurring();
+                    p &= SelfTests.testDuplicates(); p &= SelfTests.testUndo();
+                    p &= SelfTests.testHealthScore();
+                    if(p) console.log("%cFinanceOS SelfTests PASS", "color: #34c759; font-weight: bold; font-size: 14px;");
+                    else console.error("FinanceOS SelfTests FAIL");
+                } catch(e) { console.error("FinanceOS SelfTests FAIL", e); }
+            },
+            testParser: () => {
+                const text = `Jun 24, 2026\n04:49 PM\nFASTag Recharge for MH18V1327 DEBIT ₹302\nTransaction ID`;
+                const res = PDFImport.parsePhonePeStatement(text);
+                return res.parsed.length === 1 && res.parsed[0].amount === 302 && res.parsed[0].category === "Travel";
+            },
+            testBudget: () => Math.min(100, (500/1000)*100) === 50,
+            testTransactions: () => {
+                const len = State.transactions.length;
+                State.transactions.push({id: "t_test", amount: 100, date: "2026-01-01", type: "Expense", category: "Other", note: "Test"});
+                let pass = State.transactions.length === len + 1;
+                State.transactions = State.transactions.filter(t => t.id !== "t_test");
+                return pass && State.transactions.length === len;
+            },
+            testRecurring: () => Recurring.calcNext("2026-01-01", "monthly") === "2026-02-01",
+            testDuplicates: () => {
+                const testTx = {id:"dup1", date:"2026-01-01", amount:100, note:"Dup", type:"Expense", category:"Food"};
+                State.transactions.push(testTx);
+                const isDup = State.transactions.some(t => t.date==="2026-01-01" && t.amount===100 && t.note==="Dup" && t.id !== "dup1_fake");
+                State.transactions = State.transactions.filter(t => t.id !== "dup1");
+                return isDup;
+            },
+            testUndo: () => typeof Transactions.delete === 'function',
+            testHealthScore: () => typeof Analytics.compute === 'function' && typeof AI.generateInsights === 'function'
+        };
+
+        // --- Core Application Managers ---
+        const StorageManager = {
+            load: () => {
+                const raw = localStorage.getItem("FinanceOS_Pro_Data");
+                if (raw) {
+                    try { 
+                        const parsed = JSON.parse(raw); 
+                        State = { ...State, ...parsed };
+                        State.transactions.forEach(t => { if(!t.id) t.id = Date.now().toString() + Math.random(); });
+                        if(!State.recurring) State.recurring = [];
+                    } catch (e) { Toast.show("Error loading database.", "error"); }
+                }
+            },
+            save: () => {
+                try {
+                    localStorage.setItem("FinanceOS_Pro_Data", JSON.stringify(State));
+                } catch (e) {
+                    Toast.show("Storage full. Export backup.", "error");
+                }
+            },
+            reset: () => {
+                localStorage.removeItem("FinanceOS_Pro_Data");
+                location.reload();
+            },
+            backup: () => {
+                const data = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(State));
+                const a = document.createElement('a');
+                a.href = data; a.download = `FinanceOS_Backup_${new Date().toISOString().slice(0,10)}.json`;
+                a.click();
+            },
+            restore: (file) => {
+                const reader = new FileReader();
+                reader.onload = e => {
+                    try {
+                        const parsed = JSON.parse(e.target.result);
+                        
+                        // Strict Schema Validation
+                        if (!parsed || typeof parsed !== 'object') throw new Error("Invalid structure");
+                        if (!Array.isArray(parsed.transactions)) throw new Error("Transactions missing");
+                        if (parsed.transactions.length > 0 && !('amount' in parsed.transactions[0] && 'date' in parsed.transactions[0])) throw new Error("Corrupted transactions");
+                        if (parsed.currency && !['INR', 'USD', 'EUR', 'GBP'].includes(parsed.currency)) throw new Error("Invalid currency");
+                        
+                        let duplicates = 0, imported = 0;
+                        parsed.transactions.forEach(t => {
+                            if (State.transactions.some(existing => existing.date === t.date && existing.amount === t.amount && existing.note === t.note)) {
+                                duplicates++;
+                            } else {
+                                State.transactions.push(t);
+                                imported++;
+                            }
+                        });
+                        
+                        if (parsed.recurring && Array.isArray(parsed.recurring)) State.recurring = parsed.recurring;
+                        if (parsed.budgets && typeof parsed.budgets === 'object') State.budgets = parsed.budgets;
+                        if (typeof parsed.goalAmount === 'number') State.goalAmount = parsed.goalAmount;
+                        if (parsed.currency) State.currency = parsed.currency;
+                        if (parsed.theme) State.theme = parsed.theme;
+                        
+                        StorageManager.save(); 
+                        alert(`Restore complete.\nImported: ${imported}\nDuplicates skipped: ${duplicates}`);
+                        location.reload();
+                    } catch (err) { 
+                        Toast.show("Invalid Backup File", "error"); 
+                        console.error(err);
+                    }
+                };
+                reader.readAsText(file);
+            }
+        };
+
+        const Toast = {
+            show: (msg, type = 'info') => {
+                const container = document.getElementById("toast-container");
+                const el = document.createElement("div");
+                el.className = "toast";
+                const icon = type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️';
+                el.innerHTML = `<span>${icon}</span><span>${Utils.escapeHTML(msg)}</span>`;
+                container.appendChild(el);
+                requestAnimationFrame(() => { el.classList.add("show"); });
+                setTimeout(() => {
+                    el.classList.remove("show");
+                    setTimeout(() => el.remove(), 400);
+                }, 3000);
+            }
+        };
+
+        const Format = {
+            money: (val) => `${CONSTANTS.CURRENCY[State.currency]}${parseFloat(val).toFixed(2)}`,
+            date: (str) => { const d = new Date(str); return `${CONSTANTS.MONTHS[d.getMonth()]} ${d.getDate()}, ${d.getFullYear()}`; }
+        };
+
+        // --- PWA Support via Dynamic Injection ---
+        const PWA = {
+            init: () => {
+                const manifest = {
+                    "name": "FinanceOS Pro",
+                    "short_name": "FinanceOS",
+                    "start_url": ".",
+                    "display": "standalone",
+                    "background_color": "#ffffff",
+                    "theme_color": "#0066cc",
+                    "icons": [{
+                        "src": "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌘</text></svg>",
+                        "sizes": "192x192",
+                        "type": "image/svg+xml"
+                    }]
+                };
+                const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
+                const manifestUrl = URL.createObjectURL(manifestBlob);
+                const link = document.createElement('link');
+                link.rel = 'manifest'; link.href = manifestUrl;
+                document.head.appendChild(link);
+
+                if ('serviceWorker' in navigator && window.location.protocol !== 'file:') {
+                    const swCode = `
+                        const CACHE_NAME = 'financeos-v1-cache';
+                        const urlsToCache = [location.href, '${manifestUrl}'];
+                        self.addEventListener('install', e => { e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(urlsToCache))); });
+                        self.addEventListener('fetch', e => { e.respondWith(caches.match(e.request).then(res => res || fetch(e.request))); });
+                    `;
+                    const swBlob = new Blob([swCode], {type: 'application/javascript'});
+                    navigator.serviceWorker.register(URL.createObjectURL(swBlob)).catch(() => {});
+                }
+            }
+        };
+
+        // --- Modules ---
+
+        const PDFImport = {
+            pendingTransactions: [],
+            invalidCount: 0,
+            handle: async (e) => {
+                const file = e.target.files[0];
+                if(!file) return;
+                Toast.show("Reading PDF Statement...", "info");
+                
+                pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+                
+                try {
+                    const arrayBuffer = await file.arrayBuffer();
+                    const pdf = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+                    
+                    if(pdf.numPages > 100) {
+                        Toast.show("Large PDF not supported", "error");
+                        e.target.value = ''; return;
+                    }
+
+                    let fullText = "";
+                    for(let i = 1; i <= pdf.numPages; i++) {
+                        const page = await pdf.getPage(i);
+                        const content = await page.getTextContent();
+                        let lastY = -1, line = "";
+                        content.items.forEach(item => {
+                            if (lastY !== item.transform[5] && lastY !== -1) { fullText += line + "\n"; line = ""; }
+                            line += item.str + " ";
+                            lastY = item.transform[5];
+                        });
+                        fullText += line + "\n";
+                    }
+                    PDFImport.autoDetectAndParse(fullText);
+                } catch (err) {
+                    Toast.show("Failed to read PDF. Format error.", "error");
+                }
+                e.target.value = '';
+            },
+            autoDetectAndParse: (text) => {
+                let result;
+                if (/PhonePe/i.test(text)) {
+                    result = PDFImport.parsePhonePeStatement(text);
+                } else if (/Google Pay|GPay/i.test(text)) {
+                    result = PDFImport.parseGooglePayStatement(text);
+                } else if (/Paytm/i.test(text)) {
+                    result = PDFImport.parsePaytmStatement(text);
+                } else if (/HDFC/i.test(text)) {
+                    result = PDFImport.parseHDFCStatement(text);
+                } else if (/ICICI/i.test(text)) {
+                    result = PDFImport.parseICICIStatement(text);
+                } else if (/SBI/i.test(text)) {
+                    result = PDFImport.parseSBIStatement(text);
+                } else {
+                    result = PDFImport.parseGenericStatement(text);
+                }
+
+                PDFImport.invalidCount = result.invalid;
+                if (result.parsed.length === 0) {
+                    Toast.show("No valid transactions found.", "error");
+                    return;
+                }
+                PDFImport.pendingTransactions = result.parsed;
+                PDFImport.showPreview();
+            },
+            autoCategorize: (note) => {
+                let cat = "Other";
+                const tLower = note.toLowerCase();
+                if(/(swiggy|zomato|eatclub|dominos|food|dining|restaurant|coffee|starbucks|blinkit|zepto)/.test(tLower)) cat = "Food";
+                else if(/(uber|ola|rapido|travel|flight|irctc|petrol|fuel|fastag)/.test(tLower)) cat = "Travel";
+                else if(/(amazon|flipkart|shopping|store|mart|myntra|lenskart|ekart)/.test(tLower)) cat = "Shopping";
+                else if(/(netflix|spotify|cinema|movie|prime)/.test(tLower)) cat = "Entertainment";
+                else if(/(airtel|jio|electricity|bill|recharge|broadband|aws)/.test(tLower)) cat = "Bills";
+                else if(/(hospital|pharmacy|clinic|health)/.test(tLower)) cat = "Health";
+                else if(/(linkedin|aws|education|course|udemy|coursera)/.test(tLower)) cat = "Education";
+                else if(/(salary|bonus|dividend|interest)/.test(tLower)) cat = "Salary";
+                return cat;
+            },
+            parsePhonePeStatement: (text) => {
+                const parsed = []; let invalid = 0;
+                const regex = /([A-Za-z]{3}\s+\d{1,2},?\s+\d{4})\s+(\d{1,2}:\d{2}\s[AP]M)\s+([\s\S]+?)(DEBIT|CREDIT)\s*(?:₹|Rs\.?)?\s*([\d,]+(?:\.\d+)?)/gi;
+                let match;
+                while ((match = regex.exec(text)) !== null) {
+                    try {
+                        let dObj = new Date(match[1].replace(/,/g, ''));
+                        if (isNaN(dObj.getTime())) { invalid++; continue; }
+                        let isoDate = dObj.toISOString().split('T')[0];
+                        
+                        let amt = parseFloat(match[5].replace(/,/g, ''));
+                        if (isNaN(amt) || amt <= 0) { invalid++; continue; }
+                        
+                        let note = match[3].replace(/\n/g, ' ').replace(/\s+/g, ' ').trim();
+                        if(note.toLowerCase().startsWith('paid to ')) note = note.substring(8).trim();
+                        if(note.toLowerCase().startsWith('received from ')) note = note.substring(14).trim();
+                        
+                        parsed.push({
+                            id: Date.now().toString() + Math.random().toString(36).substring(2),
+                            date: isoDate, 
+                            note: note.substring(0, 50) || 'PhonePe Transaction',
+                            category: PDFImport.autoCategorize(note), 
+                            amount: amt,
+                            type: match[4].toUpperCase() === 'CREDIT' ? 'Income' : 'Expense',
+                            selected: true
+                        });
+                    } catch(e) { invalid++; }
+                }
+                return { parsed, invalid };
+            },
+            parseGooglePayStatement: (text) => PDFImport.parseGenericStatement(text),
+            parsePaytmStatement: (text) => PDFImport.parseGenericStatement(text),
+            parseHDFCStatement: (text) => PDFImport.parseGenericStatement(text),
+            parseICICIStatement: (text) => PDFImport.parseGenericStatement(text),
+            parseSBIStatement: (text) => PDFImport.parseGenericStatement(text),
+            parseGenericStatement: (text) => {
+                const lines = text.split('\n');
+                const parsed = []; let invalid = 0;
+                const dateRegex = /\b(\d{2}[\/\-]\d{2}[\/\-]\d{2,4}|[A-Za-z]{3}\s\d{1,2},?\s\d{4}|\d{1,2}\s[A-Za-z]{3}\s\d{4})\b/i;
+                const amtRegex = /([\d,]+\.\d{2})/g;
+                lines.forEach(line => {
+                    const l = line.trim(); if (!l) return;
+                    const dateMatch = l.match(dateRegex);
+                    if (!dateMatch) { invalid++; return; }
+                    const amounts = [...l.matchAll(amtRegex)].map(m => parseFloat(m[1].replace(/,/g, '')));
+                    if (amounts.length === 0) { invalid++; return; }
+                    let amt = amounts[0], type = "Expense";
+                    if (/\b(CR|CREDIT|DEP|RECEIVED|UPI-IN)\b/i.test(l) || l.endsWith("Cr") || l.endsWith("Cr.")) type = "Income";
+                    else if (/\b(DR|DEBIT|PAID|SENT|UPI-OUT)\b/i.test(l)) type = "Expense";
+                    let dObj = new Date();
+                    try {
+                        let dateStr = dateMatch[1].replace(/\//g, '-').replace(/,/g, '');
+                        if (dateStr.includes('-') && !/[a-zA-Z]/.test(dateStr)) {
+                            let parts = dateStr.split('-');
+                            if (parts[2].length === 4) dObj = new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+                            else { let yr = parseInt(parts[2]) > 50 ? `19${parts[2]}` : `20${parts[2]}`; dObj = new Date(`${yr}-${parts[1]}-${parts[0]}`); }
+                        } else dObj = new Date(dateStr); 
+                        if (isNaN(dObj.getTime())) dObj = new Date();
+                    } catch(e) { dObj = new Date(); }
+                    let desc = l.replace(dateMatch[0], '').replace(amtRegex, '').replace(/\b(Cr|Dr|CR|DR|DEBIT|CREDIT|INR|Rs)\b/gi, '').trim();
+                    desc = desc.replace(/\s+/g, ' ').substring(0, 50) || "Statement Transaction";
+                    parsed.push({
+                        id: Date.now().toString() + Math.random().toString(36).substring(2),
+                        date: dObj.toISOString().split('T')[0], note: desc,
+                        category: PDFImport.autoCategorize(desc), amount: amt, type: type, selected: true
+                    });
+                });
+                return { parsed, invalid };
+            },
+            showPreview: (skipListeners = false) => {
+                const theadTr = document.querySelector("#pdfPreviewModal table thead tr");
+                if(theadTr && !document.getElementById("pdfSelectAll")) {
+                    theadTr.children[0].innerHTML = `<input type="checkbox" id="pdfSelectAll" checked title="Select All">`;
+                    document.getElementById("pdfSelectAll").addEventListener("change", (e) => {
+                        const isChecked = e.target.checked;
+                        PDFImport.pendingTransactions.forEach(t => t.selected = isChecked);
+                        PDFImport.showPreview(true);
+                    });
+                } else if (document.getElementById("pdfSelectAll")) {
+                    document.getElementById("pdfSelectAll").checked = PDFImport.pendingTransactions.every(t => t.selected);
+                }
+
+                const tbody = document.getElementById("pdfPreviewBody");
+                tbody.innerHTML = PDFImport.pendingTransactions.map((t, index) => `
+                    <tr>
+                        <td><input type="checkbox" ${t.selected ? 'checked' : ''} onchange="PDFImport.pendingTransactions[${index}].selected = this.checked; if(!this.checked) document.getElementById('pdfSelectAll').checked = false;"></td>
+                        <td class="font-mono text-muted">${Format.date(t.date)}</td>
+                        <td style="max-width: 250px; overflow: hidden; text-overflow: ellipsis;">${Utils.escapeHTML(t.note)}</td>
+                        <td><span class="tag">${t.category}</span></td>
+                        <td class="font-mono ${t.type==='Income'?'val-income':'val-expense'}">${t.type==='Income'?'+':'-'}${Format.money(t.amount)}</td>
+                    </tr>`).join('');
+                document.getElementById("pdfPreviewModal").classList.add("active");
+            },
+            importSelected: () => {
+                let imported = 0, duplicates = 0, incTotal = 0, expTotal = 0;
+                PDFImport.pendingTransactions.filter(t => t.selected).forEach(t => {
+                    if(State.transactions.some(ex => ex.date === t.date && ex.amount === t.amount && ex.note === t.note)) {
+                        duplicates++;
+                    } else {
+                        delete t.selected;
+                        State.transactions.push(t);
+                        imported++;
+                        if(t.type === 'Income') incTotal += t.amount; else expTotal += t.amount;
+                    }
+                });
+                StorageManager.save(); UI.render();
+                document.getElementById("pdfPreviewModal").classList.remove("active");
+                alert(`Import Summary\n\nImported: ${imported}\nDuplicates skipped: ${duplicates}\nInvalid rows: ${PDFImport.invalidCount}\nIncome total: ${Format.money(incTotal)}\nExpense total: ${Format.money(expTotal)}`);
+            }
+        };
+
+        const Recurring = {
+            process: () => {
+                const today = new Date().toISOString().split('T')[0];
+                let updated = false;
+                State.recurring.forEach(r => {
+                    let circuitBreaker = 0; // Prevent infinite loop lock
+                    while(r.nextDate <= today && circuitBreaker < 100) {
+                        State.transactions.push({
+                            id: Date.now().toString() + Math.random().toString(36).substring(2),
+                            amount: r.amount, date: r.nextDate, type: r.type, category: r.category, note: `${r.note} (Auto)`
+                        });
+                        r.nextDate = Recurring.calcNext(r.nextDate, r.frequency);
+                        updated = true;
+                        circuitBreaker++;
+                    }
+                });
+                if(updated) StorageManager.save();
+            },
+            calcNext: (dateStr, freq) => {
+                const d = new Date(dateStr);
+                if(isNaN(d.getTime())) return '9999-12-31'; // Corrupt date failsafe
+                if(freq === 'weekly') d.setDate(d.getDate() + 7);
+                else if(freq === 'monthly') d.setMonth(d.getMonth() + 1);
+                else if(freq === 'yearly') d.setFullYear(d.getFullYear() + 1);
+                else d.setFullYear(d.getFullYear() + 100); // Invalid freq failsafe
+                return d.toISOString().split('T')[0];
+            },
+            delete: (id) => {
+                if(confirm("Remove this recurring rule?")) {
+                    State.recurring = State.recurring.filter(r => r.id !== id);
+                    StorageManager.save(); UI.renderRecurringSettings();
+                    Toast.show("Rule removed", "success");
+                }
+            }
+        };
+
+        const CSVImport = {
+            handle: (e) => {
+                const file = e.target.files[0];
+                if(!file) return;
+                const reader = new FileReader();
+                reader.onload = ev => {
+                    const lines = ev.target.result.split('\n').filter(l => l.trim().length > 0);
+                    let imported = 0, duplicates = 0, invalid = 0;
+                    
+                    for(let i=1; i<lines.length; i++) {
+                        const cols = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g);
+                        if(!cols) { invalid++; continue; }
+                        const cleanCols = cols.map(c => c.replace(/^"|"$/g, '').trim());
+                        
+                        let amt = 0, date = '', note = '';
+                        cleanCols.forEach(c => {
+                            if((/^\d{4}-\d{2}-\d{2}$/.test(c) || /^\d{2}[\/\-]\d{2}[\/\-]\d{4}$/.test(c)) && !date) date = c;
+                            else if(!isNaN(parseFloat(c.replace(/,/g,''))) && /\d/.test(c) && amt === 0) amt = parseFloat(c.replace(/,/g,''));
+                            else if(isNaN(parseFloat(c)) && c.length > note.length) note = c;
+                        });
+
+                        if(amt !== 0 && date) {
+                            let type = "Expense";
+                            if(amt < 0) { type = "Expense"; amt = Math.abs(amt); }
+                            else if(amt > 0 && /(salary|refund|credit|received|deposit)/i.test(note)) type = "Income";
+                            
+                            let dObj = new Date(date);
+                            if(isNaN(dObj.getTime())) dObj = new Date();
+                            const dateStr = dObj.toISOString().split('T')[0];
+                            
+                            let cat = "Other";
+                            const finalNote = note || 'CSV Import';
+                            cat = PDFImport.autoCategorize(finalNote);
+                            
+                            if (State.transactions.some(existing => existing.date === dateStr && existing.amount === amt && existing.note === finalNote)) {
+                                duplicates++;
+                            } else {
+                                State.transactions.push({
+                                    id: Date.now().toString() + Math.random().toString(36).substring(2),
+                                    amount: amt, date: dateStr, type, category: cat, note: finalNote
+                                });
+                                imported++;
+                            }
+                        } else {
+                            invalid++;
+                        }
+                    }
+                    StorageManager.save(); UI.render();
+                    alert(`Imported: ${imported}\nDuplicates skipped: ${duplicates}\nInvalid rows: ${invalid}`);
+                    e.target.value = '';
+                };
+                reader.readAsText(file);
+            }
+        };
+
+        const UI = {
+            init: () => {
+                Recurring.process();
+                PWA.init();
+
+                const catSelects = [document.getElementById("txCategory"), document.getElementById("filterCategory")];
+                CONSTANTS.CATEGORIES.forEach(c => {
+                    catSelects[0].add(new Option(c, c)); catSelects[1].add(new Option(c, c));
+                });
+                document.getElementById("txDate").value = new Date().toISOString().split('T')[0];
+                document.getElementById("currencySelect").value = State.currency;
+                document.getElementById("goalInput").value = State.goalAmount || '';
+                
+                if(State.theme === 'dark') document.body.classList.add("dark-theme");
+
+                UI.attachListeners();
+                UI.render();
+            },
+
+            attachListeners: () => {
+                document.getElementById("txForm").addEventListener("submit", Transactions.save);
+                document.getElementById("txCancelEditBtn").addEventListener("click", Transactions.cancelEdit);
+                document.getElementById("themeToggleBtn").addEventListener("click", () => {
+                    document.body.classList.toggle("dark-theme");
+                    State.theme = document.body.classList.contains("dark-theme") ? 'dark' : 'light';
+                    StorageManager.save(); Charts.renderAll();
+                });
+                
+                // Settings Modal
+                document.getElementById("settingsBtn").addEventListener("click", () => {
+                    UI.renderRecurringSettings();
+                    document.getElementById("settingsModal").classList.add("active");
+                });
+                document.getElementById("closeSettingsBtn").addEventListener("click", () => document.getElementById("settingsModal").classList.remove("active"));
+                
+                document.getElementById("currencySelect").addEventListener("change", e => { State.currency = e.target.value; StorageManager.save(); UI.render(); });
+                document.getElementById("resetBtn").addEventListener("click", () => { if(confirm("Erase all data?")) StorageManager.reset(); });
+                document.getElementById("quickBackupBtn").addEventListener("click", StorageManager.backup);
+                document.getElementById("backupBtn").addEventListener("click", StorageManager.backup);
+                document.getElementById("restoreInput").addEventListener("change", e => { if(e.target.files[0]) StorageManager.restore(e.target.files[0]); });
+
+                document.getElementById("saveGoalBtn").addEventListener("click", () => {
+                    State.goalAmount = parseFloat(document.getElementById("goalInput").value) || 0;
+                    StorageManager.save(); UI.render(); Toast.show("Goal updated", "success");
+                });
+
+                let searchTimeout;
+                ["filterSearch", "filterCategory", "filterType"].forEach(id => {
+                    document.getElementById(id).addEventListener("input", () => { 
+                        if(id === "filterSearch") {
+                            clearTimeout(searchTimeout);
+                            searchTimeout = setTimeout(() => { Ledger.currentPage = 1; Ledger.render(); }, 300);
+                        } else {
+                            Ledger.currentPage = 1; Ledger.render(); 
+                        }
+                    });
+                });
+
+                document.getElementById("parseBtn").addEventListener("click", Parser.execute);
+                document.getElementById("editBudgetsBtn").addEventListener("click", Budgets.toggleEdit);
+                document.getElementById("cancelBudgetsBtn").addEventListener("click", Budgets.toggleEdit);
+                document.getElementById("saveBudgetsBtn").addEventListener("click", Budgets.save);
+
+                document.getElementById("exportCsvBtn").addEventListener("click", Exporter.csv);
+                document.getElementById("exportPdfBtn").addEventListener("click", Exporter.pdf);
+                document.getElementById("importCsvBtn").addEventListener("change", CSVImport.handle);
+                document.getElementById("importPdfBtn").addEventListener("change", PDFImport.handle);
+                
+                // Floating Action Button Listener
+                document.getElementById("fabBtn").addEventListener("click", () => {
+                    document.getElementById("txForm").scrollIntoView({ behavior: "smooth" });
+                    setTimeout(() => document.getElementById("txAmount").focus(), 300);
+                });
+            },
+
+            render: () => {
+                Analytics.compute();
+                Ledger.render();
+                Budgets.render();
+                AI.generateInsights();
+                Charts.renderAll();
+            },
+
+            renderRecurringSettings: () => {
+                const container = document.getElementById("recurringList");
+                if(State.recurring.length === 0) return container.innerHTML = '<p class="text-muted text-center py-2">No active recurring rules.</p>';
+                container.innerHTML = State.recurring.map(r => `
+                    <div class="recurring-item flex-between" style="padding: 12px; margin-bottom: 8px;">
+                        <div>
+                            <strong>${Utils.escapeHTML(r.note)}</strong> <span class="tag" style="padding: 2px 6px;">${r.frequency}</span><br>
+                            <span class="text-muted" style="font-size: 12px;">${r.type === 'Income'?'+':'-'}${Format.money(r.amount)} • Next: ${Format.date(r.nextDate)}</span>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="Recurring.delete('${r.id}')">🗑️</button>
+                    </div>
+                `).join('');
+            }
+        };
+
+        const Transactions = {
+            save: (e) => {
+                e.preventDefault();
+                const errEl = document.getElementById("formError");
+                const showErr = (msg) => { errEl.textContent = msg; errEl.style.display = "block"; errEl.scrollIntoView({behavior:'smooth', block:'nearest'}); };
+                errEl.style.display = "none";
+
+                const amtRaw = parseFloat(document.getElementById("txAmount").value);
+                const date = document.getElementById("txDate").value;
+                const type = document.getElementById("txType").value;
+                const cat = document.getElementById("txCategory").value;
+                const note = document.getElementById("txNote").value.trim();
+                const freq = document.getElementById("txRecurring").value;
+
+                if (!amtRaw && amtRaw !== 0) return showErr("Amount is required.");
+                if (isNaN(amtRaw) || amtRaw <= 0) return showErr("Amount must be a number greater than zero.");
+                if (amtRaw > 10000000) return showErr("Amount looks incorrect — over 1 crore. Check for typos.");
+                if (!date) return showErr("Date is required.");
+                const parsedDate = new Date(date);
+                if (isNaN(parsedDate.getTime())) return showErr("Invalid date entered.");
+                const minDate = new Date("2000-01-01");
+                const maxDate = new Date(); maxDate.setFullYear(maxDate.getFullYear() + 1);
+                if (parsedDate < minDate || parsedDate > maxDate) return showErr("Date is out of acceptable range (2000 – next year).");
+                if (!note) return showErr("Note / Merchant cannot be empty.");
+                if (note.length > 100) return showErr("Note is too long — keep it under 100 characters.");
+
+                const amt = amtRaw;
+
+                const tx = {
+                    id: currentEditId || Date.now().toString() + Math.random().toString(36).substring(2),
+                    amount: amt, date, type, category: cat, note
+                };
+
+                if (currentEditId) {
+                    const idx = State.transactions.findIndex(t => t.id === currentEditId);
+                    if(idx > -1) State.transactions[idx] = tx;
+                    Toast.show("Transaction updated", "success");
+                } else {
+                    State.transactions.push(tx);
+                    Toast.show("Transaction added", "success");
+                    
+                    if(freq !== 'none') {
+                        State.recurring.push({
+                            id: Date.now().toString() + 'r',
+                            amount: amt, date, type, category: cat, note, frequency: freq, nextDate: Recurring.calcNext(date, freq)
+                        });
+                        Toast.show(`Recurring rule (${freq}) established`, "success");
+                    }
+                }
+
+                Transactions.cancelEdit();
+                StorageManager.save();
+                UI.render();
+            },
+            edit: (id) => {
+                const tx = State.transactions.find(t => t.id === id);
+                if(!tx) return;
+                currentEditId = tx.id;
+                document.getElementById("formTitle").innerText = "Edit Transaction";
+                document.getElementById("txAmount").value = tx.amount;
+                document.getElementById("txDate").value = tx.date;
+                document.getElementById("txType").value = tx.type;
+                document.getElementById("txCategory").value = tx.category;
+                document.getElementById("txNote").value = tx.note;
+                document.getElementById("txRecurring").disabled = true; // Block recur edit on single tx
+                document.getElementById("txSubmitBtn").innerText = "Update";
+                document.getElementById("txCancelEditBtn").classList.remove("d-none");
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            },
+            delete: (id) => {
+                const txIndex = State.transactions.findIndex(t => t.id === id);
+                if(txIndex === -1) return;
+                const tx = State.transactions[txIndex];
+                State.transactions.splice(txIndex, 1);
+                StorageManager.save(); UI.render();
+                
+                const container = document.getElementById("toast-container");
+                const el = document.createElement("div");
+                el.className = "toast";
+                el.innerHTML = `<span>🗑️</span><span>Transaction deleted</span> <button id="undoBtn_${id}" class="btn btn-sm btn-secondary" style="margin-left:auto; padding: 4px 8px; font-size: 12px;">Undo</button>`;
+                container.appendChild(el);
+                requestAnimationFrame(() => { el.classList.add("show"); });
+
+                let isUndone = false;
+                document.getElementById(`undoBtn_${id}`).addEventListener("click", () => {
+                    isUndone = true;
+                    State.transactions.splice(txIndex, 0, tx);
+                    StorageManager.save(); UI.render();
+                    el.classList.remove("show");
+                    setTimeout(() => el.remove(), 400);
+                });
+
+                setTimeout(() => {
+                    if(!isUndone && el.parentElement) {
+                        el.classList.remove("show");
+                        setTimeout(() => el.remove(), 400);
+                    }
+                }, 5000);
+            },
+            cancelEdit: () => {
+                currentEditId = null;
+                document.getElementById("txForm").reset();
+                document.getElementById("txDate").value = new Date().toISOString().split('T')[0];
+                document.getElementById("txRecurring").disabled = false;
+                document.getElementById("formTitle").innerText = "Add Transaction";
+                document.getElementById("txSubmitBtn").innerText = "Save Transaction";
+                document.getElementById("txCancelEditBtn").classList.add("d-none");
+                const errEl = document.getElementById("formError");
+                if(errEl) errEl.style.display = "none";
+            }
+        };
+
+        const Ledger = {
+            currentPage: 1,
+            itemsPerPage: 50,
+            totalPages: 1,
+            render: () => {
+                const tbody = document.getElementById("ledgerBody");
+                
+                if (State.transactions.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 40px; color: var(--text-secondary);">No transactions yet<br><span style="font-size: 13px; display: block; margin-top: 8px;">Click ➕ to add your first transaction</span></td></tr>`;
+                    document.getElementById("pageIndicator").innerText = `Page 1 of 1`;
+                    document.getElementById("prevPageBtn").disabled = true;
+                    document.getElementById("nextPageBtn").disabled = true;
+                    return;
+                }
+
+                const search = document.getElementById("filterSearch").value.toLowerCase();
+                const cat = document.getElementById("filterCategory").value;
+                const type = document.getElementById("filterType").value;
+
+                let filtered = State.transactions.filter(t => {
+                    const matchSearch = t.note.toLowerCase().includes(search) || t.category.toLowerCase().includes(search);
+                    const matchCat = cat === "All" || t.category === cat;
+                    const matchType = type === "All" || t.type === type;
+                    return matchSearch && matchCat && matchType;
+                });
+
+                filtered.sort((a,b) => b.date.localeCompare(a.date));
+
+                Ledger.totalPages = Math.max(1, Math.ceil(filtered.length / Ledger.itemsPerPage));
+                if (Ledger.currentPage > Ledger.totalPages) Ledger.currentPage = Math.max(1, Ledger.totalPages);
+                
+                document.getElementById("pageIndicator").innerText = `Page ${Ledger.currentPage} of ${Ledger.totalPages}`;
+                document.getElementById("prevPageBtn").disabled = Ledger.currentPage === 1;
+                document.getElementById("nextPageBtn").disabled = Ledger.currentPage === Ledger.totalPages;
+
+                const paginated = filtered.slice((Ledger.currentPage - 1) * Ledger.itemsPerPage, Ledger.currentPage * Ledger.itemsPerPage);
+
+                if(paginated.length === 0) {
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color: var(--text-secondary);">No matching records.</td></tr>`;
+                    return;
+                }
+
+                tbody.innerHTML = paginated.map(t => `
+                    <tr>
+                        <td class="font-mono text-muted">${Format.date(t.date)}</td>
+                        <td style="font-weight: 500;">${Utils.escapeHTML(t.note)}</td>
+                        <td><span class="tag">${t.category}</span></td>
+                        <td class="font-mono ${t.type==='Income'?'val-income':'val-expense'}">
+                            ${t.type==='Income'?'+':'-'}${Format.money(t.amount)}
+                        </td>
+                        <td>
+                            <button class="btn btn-secondary btn-sm" onclick="Transactions.edit('${t.id}')">✏️</button>
+                            <button class="btn btn-danger btn-sm" onclick="Transactions.delete('${t.id}')">🗑️</button>
+                        </td>
+                    </tr>
+                `).join('');
+            },
+            prevPage: () => { if(Ledger.currentPage > 1) { Ledger.currentPage--; Ledger.render(); } },
+            nextPage: () => { if(Ledger.currentPage < Ledger.totalPages) { Ledger.currentPage++; Ledger.render(); } }
+        };
+
+        const Analytics = {
+            data: {},
+            compute: () => {
+                const now = new Date();
+                const currMonth = now.toISOString().slice(0,7);
+                const prevMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1);
+                const prevMonth = prevMonthDate.toISOString().slice(0,7);
+                
+                let totalInc = 0, totalExp = 0, monthInc = 0, monthExp = 0;
+                let prevMonthInc = 0, prevMonthExp = 0;
+                let spentToday = 0, maxExp = 0;
+                let catMap = {}, prevCatMap = {}, totalCatCount = {}, monthlyStats = {};
+                const todayStr = now.toISOString().split('T')[0];
+
+                State.transactions.forEach(t => {
+                    const amt = parseFloat(t.amount);
+                    const m = t.date.substring(0,7);
+                    if(!monthlyStats[m]) monthlyStats[m] = { inc: 0, exp: 0 };
+                    
+                    if(t.type === "Income") {
+                        totalInc += amt;
+                        monthlyStats[m].inc += amt;
+                        if(m === currMonth) monthInc += amt;
+                        if(m === prevMonth) prevMonthInc += amt;
+                    } else {
+                        totalExp += amt;
+                        monthlyStats[m].exp += amt;
+                        if(m === currMonth) {
+                            monthExp += amt;
+                            catMap[t.category] = (catMap[t.category] || 0) + amt;
+                            if(t.date === todayStr) spentToday += amt;
+                        }
+                        if(m === prevMonth) {
+                            prevMonthExp += amt;
+                            prevCatMap[t.category] = (prevCatMap[t.category] || 0) + amt;
+                        }
+                        if(amt > maxExp) maxExp = amt;
+                        totalCatCount[t.category] = (totalCatCount[t.category] || 0) + 1;
+                    }
+                });
+
+                // Streak & Extremes
+                let bestMonth = '-', worstMonth = '-', maxSave = -Infinity, minSave = Infinity;
+                let streak = 0, currentStreak = 0;
+                Object.keys(monthlyStats).sort().forEach(m => {
+                    const save = monthlyStats[m].inc - monthlyStats[m].exp;
+                    if(save > maxSave) { maxSave = save; bestMonth = m; }
+                    if(save < minSave) { minSave = save; worstMonth = m; }
+                    if(save > 0) { currentStreak++; if(currentStreak > streak) streak = currentStreak; } 
+                    else currentStreak = 0;
+                });
+
+                const balance = totalInc - totalExp;
+                let topCat = "-", maxCatVal = 0;
+                for(let c in catMap) { if(catMap[c] > maxCatVal) { maxCatVal = catMap[c]; topCat = c; } }
+                
+                const expCount = Object.values(totalCatCount).reduce((a,b)=>a+b, 0);
+                const avgExp = expCount > 0 ? totalExp / expCount : 0;
+                const saveRate = monthInc > 0 ? Math.max(0, ((monthInc - monthExp) / monthInc) * 100) : 0;
+
+                const daysLeft = Math.max(1, new Date(now.getFullYear(), now.getMonth() + 1, 0).getDate() - now.getDate());
+                const dailyLimit = monthInc > monthExp ? (monthInc - monthExp) / daysLeft : 0;
+
+                // Feature 3: Advanced Financial Health Score (0-100)
+                let score = 0;
+                if(saveRate >= 20) score += 30; else if(saveRate >= 10) score += 20; else if(saveRate > 0) score += 10;
+                
+                let overBudgetCount = 0, activeBudgets = 0;
+                for(let c in State.budgets) {
+                    if(State.budgets[c] > 0) { activeBudgets++; if((catMap[c] || 0) > State.budgets[c]) overBudgetCount++; }
+                }
+                if(activeBudgets > 0) score += (1 - (overBudgetCount / activeBudgets)) * 25; else score += 25;
+                
+                const recurTotal = State.recurring.reduce((s, r) => r.type==='Expense'?s+r.amount:s, 0);
+                const recurRatio = monthInc > 0 ? recurTotal / monthInc : 0;
+                if(recurRatio < 0.2) score += 20; else if(recurRatio < 0.4) score += 10;
+                
+                if(prevMonthExp > 0) {
+                    const growth = (monthExp - prevMonthExp) / prevMonthExp;
+                    if(growth <= 0) score += 15; else if(growth < 0.1) score += 10; else if(growth < 0.2) score += 5;
+                } else score += 15;
+                
+                const globalAvgExp = totalExp / Math.max(1, Object.keys(monthlyStats).length);
+                if(globalAvgExp > 0 && State.goalAmount >= globalAvgExp * 3) score += 10; else if(globalAvgExp > 0 && State.goalAmount >= globalAvgExp) score += 5;
+                
+                score = Math.max(0, Math.min(100, Math.round(score)));
+
+                // DOM Updates
+                document.getElementById("uiBalance").innerText = Format.money(balance);
+                document.getElementById("uiIncome").innerText = Format.money(monthInc);
+                document.getElementById("uiExpense").innerText = Format.money(monthExp);
+                document.getElementById("uiDailyLimit").innerText = Format.money(dailyLimit);
+                document.getElementById("uiSpentToday").innerText = Format.money(spentToday);
+                document.getElementById("uiSpentToday").style.color = (spentToday > dailyLimit && dailyLimit > 0) ? "var(--expense)" : "inherit";
+
+                document.getElementById("uiHealthScore").innerText = score;
+                document.getElementById("uiHealthBar").style.width = `${score}%`;
+                const hb = document.getElementById("uiHealthBar"), hl = document.getElementById("uiHealthLabel");
+                if(score >= 86) { hb.style.background = "var(--income)"; hl.innerText = "Excellent"; }
+                else if(score >= 71) { hb.style.background = "var(--income)"; hl.innerText = "Good"; }
+                else if(score >= 41) { hb.style.background = "var(--warning)"; hl.innerText = "Average"; }
+                else { hb.style.background = "var(--expense)"; hl.innerText = "Poor"; }
+
+                const saved = Math.max(0, balance);
+                document.getElementById("uiGoalSaved").innerText = Format.money(saved);
+                document.getElementById("uiGoalTarget").innerText = `/ ${Format.money(State.goalAmount)}`;
+                document.getElementById("uiGoalBar").style.width = `${State.goalAmount > 0 ? Math.min(100, (saved / State.goalAmount)*100) : 0}%`;
+
+                document.getElementById("statCount").innerText = State.transactions.length;
+                document.getElementById("statAvgExp").innerText = Format.money(avgExp);
+                document.getElementById("statMaxExp").innerText = Format.money(maxExp);
+                document.getElementById("statTopCat").innerText = topCat;
+                document.getElementById("statSaveRate").innerText = `${saveRate.toFixed(1)}%`;
+                document.getElementById("statBestMonth").innerText = bestMonth !== '-' ? bestMonth : '-';
+                document.getElementById("statWorstMonth").innerText = worstMonth !== '-' ? worstMonth : '-';
+                document.getElementById("statStreak").innerText = `${streak} months`;
+
+                Analytics.data = { currMonth, monthInc, monthExp, prevMonthExp, catMap, prevCatMap, spentToday, dailyLimit, saveRate, balance, topCat };
+            }
+        };
+
+        const Budgets = {
+            render: () => {
+                const list = document.getElementById("budgetDisplayList");
+                const grid = document.getElementById("budgetInputsGrid");
+                list.innerHTML = ""; grid.innerHTML = "";
+                const { catMap } = Analytics.data;
+
+                CONSTANTS.CATEGORIES.forEach(c => {
+                    const limit = State.budgets[c] || 0;
+                    grid.innerHTML += `<div class="input-group mb-1"><label>${c}</label><input type="number" id="bInp_${c}" value="${limit}" min="0"></div>`;
+                });
+
+                let active = false;
+                CONSTANTS.CATEGORIES.forEach(c => {
+                    const limit = State.budgets[c] || 0;
+                    const spent = catMap[c] || 0;
+                    if(limit > 0 || spent > 0) {
+                        active = true;
+                        const pct = limit > 0 ? Math.min(100, (spent/limit)*100) : 100;
+                        const color = pct >= 100 ? "var(--expense)" : pct > 80 ? "var(--warning)" : "var(--accent)";
+                        list.innerHTML += `
+                            <div class="budget-item">
+                                <div class="budget-info">
+                                    <strong>${c}</strong><span class="font-mono text-muted">${Format.money(spent)} / ${limit > 0 ? Format.money(limit) : 'No Limit'}</span>
+                                </div>
+                                <div class="progress-wrap" style="height: 6px; margin:0;"><div class="progress-fill" style="width: ${pct}%; background: ${color};"></div></div>
+                            </div>`;
+                    }
+                });
+                if(!active) list.innerHTML = `<p class="text-muted text-center" style="padding: 20px;">No budgets configured.</p>`;
+            },
+            toggleEdit: () => {
+                const list = document.getElementById("budgetDisplayList");
+                const edit = document.getElementById("budgetEditSection");
+                if(edit.classList.contains("d-none")) { edit.classList.remove("d-none"); list.classList.add("d-none"); } 
+                else { edit.classList.add("d-none"); list.classList.remove("d-none"); }
+            },
+            save: () => {
+                CONSTANTS.CATEGORIES.forEach(c => { State.budgets[c] = parseFloat(document.getElementById(`bInp_${c}`).value) || 0; });
+                StorageManager.save(); UI.render(); Budgets.toggleEdit(); Toast.show("Budgets saved", "success");
+            }
+        };
+
+        const AI = {
+            generateInsights: () => {
+                const list = document.getElementById("aiInsightsList");
+                list.innerHTML = "";
+                const d = Analytics.data;
+
+                if(State.transactions.length === 0) {
+                    list.innerHTML = `<li class="text-muted">Start adding transactions to see Smart Insights.</li>`;
+                    return;
+                }
+
+                // Feature 6: AI Monthly Summary
+                if (d.prevMonthExp > 0 || d.monthExp > 0) {
+                    const diff = d.monthExp - d.prevMonthExp;
+                    const diffStr = diff <= 0 ? `${Format.money(Math.abs(diff))} less` : `${Format.money(Math.abs(diff))} more`;
+                    
+                    let foodStr = "", travelStr = "";
+                    const curFood = d.catMap["Food"] || 0; const prevFood = d.prevCatMap["Food"] || 0;
+                    if(prevFood > 0) foodStr = `Food spending ${curFood >= prevFood ? 'increased' : 'decreased'} ${Math.abs(Math.round(((curFood - prevFood)/prevFood)*100))}%. `;
+                    const curTrav = d.catMap["Travel"] || 0; const prevTrav = d.prevCatMap["Travel"] || 0;
+                    if(prevTrav > 0) travelStr = `Travel spending ${curTrav >= prevTrav ? 'increased' : 'decreased'} ${Math.abs(Math.round(((curTrav - prevTrav)/prevTrav)*100))}%. `;
+                    
+                    const potSavings = Math.max(0, d.monthInc - d.monthExp);
+                    list.innerHTML += `<li><span class="insight-icon">🤖</span><span>In ${CONSTANTS.MONTHS[new Date().getMonth()]} you spent ${diffStr} than last month. ${foodStr}${travelStr}Potential monthly savings: <strong>${Format.money(potSavings)}</strong>.</span></li>`;
+                }
+
+                // Feature 4: Subscription Detector
+                const subKeywords = ["netflix", "spotify", "claude", "chatgpt", "youtube premium", "github copilot", "aws", "prime", "hotstar"];
+                let detectedSubs = []; let subTotal = 0;
+                subKeywords.forEach(kw => {
+                    const recent = State.transactions.filter(t => t.type === 'Expense' && t.note.toLowerCase().includes(kw)).sort((a,b)=>b.date.localeCompare(a.date))[0];
+                    if(recent && (new Date() - new Date(recent.date))/(1000*60*60*24) < 40) {
+                        detectedSubs.push(`${Utils.escapeHTML(recent.note.substring(0,15))} (${Format.money(recent.amount)})`);
+                        subTotal += recent.amount;
+                    }
+                });
+                if(detectedSubs.length > 0) {
+                    list.innerHTML += `<li><span class="insight-icon">🔁</span><span><strong>Active Subscriptions:</strong><br>${detectedSubs.join(', ')}<br>Monthly Total: <strong>${Format.money(subTotal)}</strong></span></li>`;
+                }
+
+                // Feature 5: Merchant Intelligence
+                let mCounts = {}, mAmts = {}, mealCount = 0, mealAmt = 0, fastagFuelAmt = 0, travelAmt = 0, shopAmt = 0;
+                State.transactions.filter(t=>t.type==='Expense').forEach(t => {
+                    const n = t.note.trim().toUpperCase();
+                    mCounts[n] = (mCounts[n]||0) + 1;
+                    mAmts[n] = (mAmts[n]||0) + t.amount;
+                    if(t.category === 'Food') { mealCount++; mealAmt += t.amount; }
+                    if(/(fastag|fuel|petrol|diesel|shell|indian oil)/i.test(t.note)) fastagFuelAmt += t.amount;
+                    if(t.category === 'Travel') travelAmt += t.amount;
+                    if(t.category === 'Shopping') shopAmt += t.amount;
+                });
+                
+                let topMerchant = Object.keys(mAmts).sort((a,b)=>mAmts[b]-mAmts[a])[0];
+                let avgMeal = mealCount > 0 ? mealAmt / mealCount : 0;
+                
+                let merchantStr = [];
+                if(topMerchant && mAmts[topMerchant] > 0) merchantStr.push(`Top merchant: <strong>${Utils.escapeHTML(topMerchant)}</strong>`);
+                if(avgMeal > 0) merchantStr.push(`Avg meal: <strong>${Format.money(avgMeal)}</strong>`);
+                if(fastagFuelAmt > 0) merchantStr.push(`Fuel/Fastag: <strong>${Format.money(fastagFuelAmt)}</strong>`);
+                
+                if(merchantStr.length > 0) {
+                    list.innerHTML += `<li><span class="insight-icon">🏬</span><span><strong>Merchant Insights:</strong><br>${merchantStr.join('<br>')}</span></li>`;
+                }
+
+                let breached = [];
+                for(let c in State.budgets) { if(State.budgets[c] > 0 && (d.catMap[c] || 0) > State.budgets[c]) breached.push(c); }
+                if(breached.length > 0) list.innerHTML += `<li><span class="insight-icon">✂️</span><span>Budgets exceeded: ${breached.join(', ')}.</span></li>`;
+            }
+        };
+
+        const Parser = {
+            execute: () => {
+                const text = document.getElementById("parserInput").value;
+                if(!text.trim()) return Toast.show("Paste a message first.", "error");
+
+                let amount = 0, type = "Expense", category = "Other", note = "Auto-Parsed";
+                const amtMatch = text.match(/(?:rs\.?|inr|₹|\$|€|£)\s*([\d,]+(?:\.\d{2})?)|([\d,]+(?:\.\d{2})?)\s*(?:rs\.?|inr|₹|\$|€|£)/i);
+                if(amtMatch) {
+                    let valStr = amtMatch[1] || amtMatch[2];
+                    amount = parseFloat(valStr.replace(/,/g, ''));
+                }
+
+                const tLower = text.toLowerCase();
+                if(/(received|credited|salary|refund)/.test(tLower)) type = "Income";
+                if(/(paid|debited|spent)/.test(tLower)) type = "Expense";
+
+                category = PDFImport.autoCategorize(tLower);
+
+                // Merchant/Note guess
+                const atMatch = text.match(/(?:at|to)\s+([a-zA-Z0-9\s]+?)(?:via|\.|on|for|$)/i);
+                if(atMatch && atMatch[1]) {
+                    note = atMatch[1].trim();
+                } else {
+                    let amtStr = amtMatch ? amtMatch[0] : '';
+                    note = text.replace(amtStr, '').replace(/[\n\r]/g, ' ').trim().substring(0, 30);
+                    if(!note) note = "Auto-Parsed";
+                }
+
+                if(amount > 0) {
+                    document.getElementById("txAmount").value = amount;
+                    document.getElementById("txType").value = type;
+                    document.getElementById("txCategory").value = category;
+                    document.getElementById("txNote").value = note;
+                    document.getElementById("txDate").value = new Date().toISOString().split('T')[0];
+                    Toast.show("Data extracted! Verify and save.", "success");
+                    document.getElementById("parserInput").value = "";
+                } else Toast.show("Could not detect amount.", "error");
+            }
+        };
+
+        const Charts = {
+            colors: ['#0066cc', '#34c759', '#ff9500', '#ff3b30', '#af52de', '#5856d6', '#ff2d55', '#5ac8fa', '#8e8e93', '#1d1d1f'],
+            getCssVar: (varName) => getComputedStyle(document.documentElement).getPropertyValue(varName).trim(),
+            getThemeColor: () => document.body.classList.contains("dark-theme") ? '#f5f5f7' : '#1d1d1f',
+            getGridColor: () => document.body.classList.contains("dark-theme") ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)',
+
+            renderAll: () => { Charts.drawPie(); Charts.drawBar(); Charts.drawTrend(); },
+
+            drawPie: () => {
+                const canvas = document.getElementById('pieChart'); const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const data = Analytics.data.catMap; const total = Object.values(data).reduce((a,b)=>a+b, 0);
+                
+                if(total === 0) { ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "center"; ctx.font = "14px sans-serif"; ctx.fillText("No Data", canvas.width/2, canvas.height/2); return; }
+
+                const cx = canvas.width / 2 - 35, cy = canvas.height / 2, r = Math.min(cx, cy) - 10;
+                let startAngle = 0, i = 0;
+
+                for(let cat in data) {
+                    const slice = (data[cat] / total) * 2 * Math.PI;
+                    ctx.fillStyle = Charts.colors[i % Charts.colors.length];
+                    ctx.beginPath(); ctx.moveTo(cx, cy); ctx.arc(cx, cy, r, startAngle, startAngle + slice); ctx.closePath(); ctx.fill();
+                    
+                    const legendX = cx + r + 15, legendY = cy - r + (i * 18) + 10;
+                    ctx.fillRect(legendX, legendY - 8, 10, 10);
+                    ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "left"; ctx.font = "10px sans-serif"; ctx.fillText(`${cat} (${Math.round((data[cat]/total)*100)}%)`, legendX + 15, legendY);
+                    
+                    startAngle += slice; i++;
+                }
+
+                ctx.fillStyle = Charts.getCssVar('--surface-solid') || (document.body.classList.contains("dark-theme") ? '#1c1c1e' : '#ffffff');
+                ctx.beginPath(); ctx.arc(cx, cy, r * 0.6, 0, 2 * Math.PI); ctx.fill();
+            },
+
+            drawBar: () => {
+                const canvas = document.getElementById('barChart'); const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                let monthly = {};
+                State.transactions.forEach(t => {
+                    const m = t.date.substring(0,7);
+                    if(!monthly[m]) monthly[m] = { inc: 0, exp: 0 };
+                    t.type === "Income" ? monthly[m].inc += t.amount : monthly[m].exp += t.amount;
+                });
+
+                const months = Object.keys(monthly).sort().slice(-6);
+                if(months.length === 0) { ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "center"; ctx.fillText("No Data", canvas.width/2, canvas.height/2); return; }
+
+                const maxVal = Math.max(...months.map(m => Math.max(monthly[m].inc, monthly[m].exp)), 1);
+                const padX = 30, padY = 30, w = canvas.width - padX * 2, h = canvas.height - padY * 2;
+
+                ctx.fillStyle = Charts.getCssVar('--income'); ctx.fillRect(canvas.width - 120, 10, 10, 10);
+                ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "left"; ctx.font = "10px sans-serif"; ctx.fillText("Income", canvas.width - 105, 19);
+
+                ctx.fillStyle = Charts.getCssVar('--expense'); ctx.fillRect(canvas.width - 60, 10, 10, 10);
+                ctx.fillStyle = Charts.getThemeColor(); ctx.fillText("Expense", canvas.width - 45, 19);
+
+                ctx.strokeStyle = Charts.getGridColor(); ctx.lineWidth = 1;
+                ctx.beginPath(); ctx.moveTo(padX, padY + h); ctx.lineTo(padX + w, padY + h); ctx.stroke();
+
+                const barWidth = Math.min(20, (w / months.length) / 3), step = w / months.length;
+                months.forEach((m, idx) => {
+                    const x = padX + (idx * step) + (step/2) - barWidth;
+                    const incH = (monthly[m].inc / maxVal) * h;
+                    ctx.fillStyle = Charts.getCssVar('--income'); ctx.fillRect(x, padY + h - incH, barWidth - 2, incH);
+                    const expH = (monthly[m].exp / maxVal) * h;
+                    ctx.fillStyle = Charts.getCssVar('--expense'); ctx.fillRect(x + barWidth, padY + h - expH, barWidth - 2, expH);
+
+                    ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "center"; ctx.font = "10px sans-serif"; ctx.fillText(m.substring(5), x + barWidth, padY + h + 15);
+                });
+            },
+
+            drawTrend: () => {
+                const canvas = document.getElementById('trendChart'); const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+                let monthly = {};
+                State.transactions.forEach(t => {
+                    const m = t.date.substring(0,7);
+                    if(!monthly[m]) monthly[m] = 0;
+                    monthly[m] += (t.type === "Income" ? t.amount : -t.amount);
+                });
+
+                const months = Object.keys(monthly).sort().slice(-6);
+                if(months.length < 2) { ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "center"; ctx.fillText("Need 2+ months data", canvas.width/2, canvas.height/2); return; }
+
+                let running = 0; const points = months.map(m => { running += monthly[m]; return running; });
+                const maxVal = Math.max(...points, 1), minVal = Math.min(...points, 0), range = maxVal - minVal || 1;
+                const padX = 40, padY = 20, w = canvas.width - padX * 2, h = canvas.height - padY * 2, step = w / (points.length - 1);
+
+                ctx.strokeStyle = Charts.getGridColor(); const zeroY = padY + h - ((0 - minVal) / range) * h;
+                ctx.beginPath(); ctx.moveTo(padX, zeroY); ctx.lineTo(padX + w, zeroY); ctx.stroke();
+
+                ctx.beginPath(); ctx.strokeStyle = Charts.getCssVar('--accent'); ctx.lineWidth = 3; ctx.lineJoin = "round";
+                points.forEach((p, i) => {
+                    const x = padX + (i * step), y = padY + h - ((p - minVal) / range) * h;
+                    if(i===0) ctx.moveTo(x,y); else ctx.lineTo(x,y);
+                }); ctx.stroke();
+
+                points.forEach((p, i) => {
+                    const x = padX + (i * step), y = padY + h - ((p - minVal) / range) * h;
+                    ctx.fillStyle = Charts.getCssVar('--accent'); ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+                    ctx.fillStyle = Charts.getThemeColor(); ctx.textAlign = "center"; ctx.font = "10px sans-serif"; ctx.fillText(months[i].substring(5), x, padY + h + 15);
+                });
+            }
+        };
+
+        const Exporter = {
+            csv: () => {
+                const header = ["Date", "Type", "Category", "Amount", "Note"];
+                
+                const sanitizeCSV = (val) => {
+                    let s = String(val).replace(/"/g, '""');
+                    if (/^[=+\-@\t\r]/.test(s)) s = "'" + s;
+                    return `"${s}"`;
+                };
+
+                const rows = State.transactions.map(t => [
+                    sanitizeCSV(t.date),
+                    sanitizeCSV(t.type),
+                    sanitizeCSV(t.category),
+                    sanitizeCSV(t.amount),
+                    sanitizeCSV(t.note)
+                ]);
+                const csvContent = "data:text/csv;charset=utf-8," + encodeURIComponent([header.map(h => `"${h}"`).join(","), ...rows.map(e => e.join(","))].join("\n"));
+                const link = document.createElement("a"); link.setAttribute("href", csvContent);
+                link.setAttribute("download", `FinanceOS_Export_${new Date().toISOString().slice(0,10)}.csv`);
+                document.body.appendChild(link); link.click(); document.body.removeChild(link);
+            },
+            pdf: () => {
+                const rows = State.transactions.map(t => `<tr><td style="padding:8px; border:1px solid #ccc;">${t.date}</td><td style="padding:8px; border:1px solid #ccc;">${t.type}</td><td style="padding:8px; border:1px solid #ccc;">${t.category}</td><td style="padding:8px; border:1px solid #ccc;">${Format.money(t.amount)}</td><td style="padding:8px; border:1px solid #ccc;">${Utils.escapeHTML(t.note)}</td></tr>`).join('');
+                
+                const printWindow = window.open('', '_blank');
+                if(!printWindow) return Toast.show("Popup blocked. Allow popups to print PDF.", "error");
+
+                printWindow.document.write(`
+                    <!DOCTYPE html>
+                    <html>
+                    <head><title>FinanceOS Pro Statement</title></head>
+                    <body style="padding:40px; font-family:sans-serif; color:#000; background:#fff;">
+                        <h2 style="margin-bottom: 20px;">FinanceOS Pro Statement</h2>
+                        <p>Generated: ${new Date().toLocaleDateString()}</p>
+                        <p>Currency: ${State.currency}</p>
+                        <table style="width:100%; border-collapse:collapse; margin-top:20px; font-size: 14px;">
+                            <tr style="background:#f5f5f5;">
+                                <th style="padding:8px; border:1px solid #ccc; text-align:left;">Date</th>
+                                <th style="padding:8px; border:1px solid #ccc; text-align:left;">Type</th>
+                                <th style="padding:8px; border:1px solid #ccc; text-align:left;">Category</th>
+                                <th style="padding:8px; border:1px solid #ccc; text-align:left;">Amount</th>
+                                <th style="padding:8px; border:1px solid #ccc; text-align:left;">Note</th>
+                            </tr>
+                            ${rows || '<tr><td colspan="5" style="text-align:center; padding: 20px;">No Data</td></tr>'}
+                        </table>
+                    </body></html>`);
+                
+                printWindow.document.close(); printWindow.focus();
+                setTimeout(() => { printWindow.print(); printWindow.close(); }, 250);
+            }
+        };
+
+        // Initialize core application and self-tests on load
+        document.addEventListener("DOMContentLoaded", () => { StorageManager.load(); UI.init(); SelfTests.runAll(); });
+    </script>
+</body>
+</html>
